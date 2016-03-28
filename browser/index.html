@@ -1,0 +1,44 @@
+<html lang="en">
+  <head>
+    <title>Northwind Sales</title>
+    <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="/angular/angular.js" defer></script>
+    <script src="/js/module.js" defer></script>
+    <script src="/js/appfactory.js" defer></script>
+    <script src="/js/appcontroller.js" defer></script>
+
+
+  </head>
+  <body ng-app="northwind">
+    <div class="container" ng-controller="EmployeeCtrl">
+      <h1>Northwind Sales Team</h1>
+        <div class="col-sm-4">
+          <div class="panel panel-default panel-success">
+            <div class="panel-heading">Add a Salesperson</div>
+            <div class="panel-body form-group">
+              <input type="text" ng-model="newEmployee.name" class="form-control" placeholder="employee name">
+              <br>
+              <button ng-repeat="region in regions" ng-click="toggleRegion(region)" ng-class="{'btn-primary': getRegionIndex(region) >= 0}" class="btn btn-default">{{ region }}</button>
+
+              <br>
+              <br>
+              <button ng-click="addEmployee()" class="btn btn-default">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8">
+          <div class="col-sm-6" ng-repeat="employee in employees">
+            <div class="panel panel-default" ng-class="{'panel-danger': employee.regions.length === 0, 'panel-success': employee.regions.length === 3}">
+                <div class="panel-heading">{{ employee.name }}
+                  <button class="btn btn-danger pull-right" ng-disabled="employee.regions.length !== 0" ng-click="deleteEmployee(employee)">Delete</button>
+                  <div style="clear: right;"></div>
+                </div>
+                <div class="panel-body">
+                  <button ng-repeat="region in regions" ng-click="updateEmployee(employee, region)" ng-disabled="threeRegions(employee, region)" ng-class="{'btn-primary': employee.regions.indexOf(region) !== -1}" class="btn btn-default">{{ region }}</button>
+                </div>
+            </div>
+          </div>
+        </div>
+  </div>
+  </body>
+</html>
