@@ -18,7 +18,7 @@
             <div class="panel-body form-group">
               <input type="text" ng-model="newEmployee.name" class="form-control" placeholder="employee name">
               <br>
-              <button ng-repeat="region in regions" ng-click="toggleRegion(region)" ng-class="{'btn-primary': getRegionIndex(region) >= 0}" class="btn btn-default">{{ region }}</button>
+              <button ng-repeat="region in regions" ng-disabled="threeRegions(newEmployee, region)" ng-click="toggleRegion(region)" ng-class="{'btn-primary': getRegionIndex(region) >= 0}" class="btn btn-default">{{ region }}</button>
 
               <br>
               <br>
