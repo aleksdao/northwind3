@@ -1,9 +1,17 @@
 northwind.controller("EmployeeCtrl", function ($scope, EmployeeFactory) {
   $scope.regions = ["North", "South", "East", "West"];
-  $scope.regionsSelected = [];
-  $scope.newEmployee = {
-    name: null,
-    regions: $scope.regionsSelected
+  // $scope.regionsSelected = [];
+  // $scope.newEmployee = {
+  //   name: null,
+  //   regions: $scope.regionsSelected
+  // }
+
+  var resetEmployee = function () {
+    $scope.regionsSelected = [];
+    $scope.newEmployee = {
+      name: null,
+      regions: $scope.regionsSelected
+    }
   }
 
   $scope.getRegionIndex = function (region) {
@@ -16,7 +24,7 @@ northwind.controller("EmployeeCtrl", function ($scope, EmployeeFactory) {
     else $scope.regionsSelected.splice(regionIndex, 1);
   }
 
-  $scope.getEmployees = function () {
+  var getEmployees = function () {
     EmployeeFactory.getEmployees()
       .then(function (employees) {
         $scope.employees = employees;
@@ -27,28 +35,29 @@ northwind.controller("EmployeeCtrl", function ($scope, EmployeeFactory) {
     console.log($scope.newEmployee);
     EmployeeFactory.addEmployee($scope.newEmployee)
       .then(function () {
-        $scope.getEmployees();
+        getEmployees();
+        resetEmployee();
       })
   }
 
   $scope.updateEmployee = function (employee, region) {
     EmployeeFactory.updateEmployee(employee, region)
       .then(function () {
-        $scope.getEmployees();
+        getEmployees();
       })
   }
 
   $scope.deleteEmployee = function (employee) {
     EmployeeFactory.deleteEmployee(employee)
       .then(function () {
-        $scope.getEmployees();
+        getEmployees();
       })
   }
 
   $scope.threeRegions = function (employee, region) {
     return employee.regions.indexOf(region) === -1 && employee.regions.length === 3;
   }
-
-  $scope.getEmployees();
+  resetEmployee();
+  getEmployees();
 
 })
