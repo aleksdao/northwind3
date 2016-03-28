@@ -11,9 +11,6 @@ northwind.factory("EmployeeFactory", function ($http, $log) {
 
   employeeFactoryFunc.addEmployee = function (employee) {
     return $http.post("/api/employees", employee)
-      .then(function (response) {
-        return;
-      })
       .catch($log.error);
   }
 
@@ -22,16 +19,12 @@ northwind.factory("EmployeeFactory", function ($http, $log) {
     if(regionIndex === -1) employee.regions.push(region);
     else employee.regions.splice(regionIndex, 1);
     return $http.put("api/employees/" + employee._id, employee)
-      .then(function () {
-        return;
-      })
+      .catch($log.error);
   }
 
   employeeFactoryFunc.deleteEmployee = function (employee) {
     return $http.delete("api/employees/" + employee._id)
-      .then(function () {
-        return;
-      })
+      .catch($log.error);
   }
 
   return employeeFactoryFunc;

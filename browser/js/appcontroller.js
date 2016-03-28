@@ -1,12 +1,7 @@
 northwind.controller("EmployeeCtrl", function ($scope, EmployeeFactory) {
   $scope.regions = ["North", "South", "East", "West"];
-  // $scope.regionsSelected = [];
-  // $scope.newEmployee = {
-  //   name: null,
-  //   regions: $scope.regionsSelected
-  // }
 
-  var resetEmployee = function () {
+  var initializeEmployee = function () {
     $scope.regionsSelected = [];
     $scope.newEmployee = {
       name: null,
@@ -32,11 +27,10 @@ northwind.controller("EmployeeCtrl", function ($scope, EmployeeFactory) {
   }
 
   $scope.addEmployee = function () {
-    console.log($scope.newEmployee);
     EmployeeFactory.addEmployee($scope.newEmployee)
       .then(function () {
         getEmployees();
-        resetEmployee();
+        initializeEmployee();
       })
   }
 
@@ -57,7 +51,8 @@ northwind.controller("EmployeeCtrl", function ($scope, EmployeeFactory) {
   $scope.threeRegions = function (employee, region) {
     return employee.regions.indexOf(region) === -1 && employee.regions.length === 3;
   }
-  resetEmployee();
+
+  initializeEmployee();
   getEmployees();
 
 })
