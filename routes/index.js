@@ -2,18 +2,17 @@ var express = require("express");
 var Employee = require("../db").Employee;
 var router = express.Router();
 
-router.get("/", function (req, res, next) {
-  res.sendFile(path.join(__dirname, "../browser/index.html"));
-})
+module.exports = router;
 
-router.get("/api/employees", function (req, res, next) {
+
+router.get("/", function (req, res, next) {
   Employee.find()
     .then(function (employees) {
       res.send(employees);
-    })
-})
+    }, next);
+});
 
-router.post("/api/employees", function (req, res, next) {
+router.post("/", function (req, res, next) {
   console.log('hitting post route',req.body.name, req.body.regions);
   Employee.create({
     name: req.body.name,
@@ -21,10 +20,10 @@ router.post("/api/employees", function (req, res, next) {
   })
     .then(function () {
       res.sendStatus(201);
-    })
-})
+    }, next);
+});
 
-router.put("/api/employees/:id", function(req, res, next) {
+router.put("/:id", function(req, res, next) {
   Employee.findById(req.params.id)
     .then(function (employee) {
       employee.regions = req.body.regions;
@@ -32,14 +31,13 @@ router.put("/api/employees/:id", function(req, res, next) {
     })
     .then(function () {
       res.sendStatus(201);
-    })
-})
+    }, next);
+});
 
-router.delete("/api/employees/:id", function(req, res, next) {
+router.delete("/:id", function(req, res, next) {
   Employee.findByIdAndRemove(req.params.id)
     .then(function () {
       res.sendStatus(201);
-    })
-})
+    }, next);
+});
 
-module.exports = router;

@@ -1,3 +1,2 @@
 'use strict';
-
-var northwind = angular.module("northwind", []);
+angular.module("northwind", []);

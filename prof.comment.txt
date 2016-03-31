@@ -1,0 +1,4 @@
+- good server side code
+- don't use things you don't need (ie urlencoded bodyparser)
+- make sure you're writing code from scratch (leads to good muscle memory) :)
+- you crushed this Alex!
